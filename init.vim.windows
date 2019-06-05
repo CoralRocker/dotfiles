@@ -1,0 +1,21 @@
+call plug#begin('C:\Users\Gaultier.Delbarre\AppData\Local\nvim\plugged')
+
+	Plug 'vim-airline/vim-airline'
+
+call plug#end()
+
+syntax enable
+set cursorline
+set autoindent
+
+command! RCedit :e C:/Users/Gaultier.Delbarre/AppData/Local/nvim/init.vim
+command! JSrun :!node %:t
+
+function! CopyAll()
+	let cursor_position = getpos(".")
+	normal ggVG"*Y
+	call setpos(".", cursor_position)
+	unlet cursor_position
+endfunction
+
+map <C-a> :call CopyAll()<CR>
