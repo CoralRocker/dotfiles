@@ -1,16 +1,25 @@
+" PLUGINS
+" I don't have python 2 or 3 installed, so most won't work.
 call plug#begin('C:\Users\Gaultier.Delbarre\AppData\Local\nvim\plugged')
 
 	Plug 'vim-airline/vim-airline'
 
 call plug#end()
 
-syntax enable
-set cursorline
-set autoindent
+" NEOVIM OPTIONS
+syntax enable " Syntax highlighting
+set cursorline " Tells you where you are
+set autoindent " Indents code for you
 
-command! RCedit :e C:/Users/Gaultier.Delbarre/AppData/Local/nvim/init.vim
-command! JSrun :!node %:t
+" Custom Commands
+command! RCedit :e C:/Users/Gaultier.Delbarre/AppData/Local/nvim/init.vim " Edits init.vim from anywhere
+command! JSrun :!node %:t "Runs current ECMASCRIPT file with Node.js
+command! Wq :wq " Fixes a common typo I make
+command! W :w " Fixes another commmon typo
 
+" FUNCTIONS
+"Copies all text in file to system clipboard, without moving the cursor from
+"its original position.
 function! CopyAll()
 	let cursor_position = getpos(".")
 	normal ggVG"*Y
@@ -18,4 +27,8 @@ function! CopyAll()
 	unlet cursor_position
 endfunction
 
+" KEY MAPPINGS
+" Press ctrl-s to save document
+map <C-s> :w<CR>
+" Press ctrl-a to copy all of document with CopyAll() function
 map <C-a> :call CopyAll()<CR>
