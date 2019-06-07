@@ -2,14 +2,56 @@
 " I don't have python 2 or 3 installed, so most won't work.
 call plug#begin('C:\Users\Gaultier.Delbarre\AppData\Local\nvim\plugged')
 
-	Plug 'vim-airline/vim-airline'
+	Plug 'vim-airline/vim-airline' " Sweet Looking Status Line
+
+  Plug 'ternjs/tern_for_vim', {'do':'npm install && npm install -g tern'} " JavaScript/ECMAScript AutoCompletion
+
+  Plug 'Shougo/deoplete.nvim', {'do':'UpdateRemotePlugins'} " Asynchronous Autocompletion Engine
+  
+  Plug 'carlitux/deoplete-ternjs' " Incorporate Tern into Deoplete
+
+  Plug 'neomake/neomake' " Linting for JavaScript
+
+  Plug 'scrooloose/nerdtree' " File Explorer
 
 call plug#end()
+
+" PLUGIN OPTIONS
+"Deoplete Options
+let g:deoplete#enable_at_startup=1
+let g:deoplete#enable_ignore_case=0
+let g:deoplete#enable_smart_case=1
+let g:deoplete#enable_camel_case=1
+let g:deoplete#enable_refresh_always=1
+let g:deoplete#max_menu_width=0
+let g:deoplete#max_abbr_width=0
+let g:deoplete#omni#input_patterns=get(g:,'deoplete#omni#input_patterns',{})
+
+"Tern Options
+let g:tern_request_timeout=1
+let g:tern_request_timeout=6000
+let g:tern#command=["tern"]
+let g:tern#arguments=[" - persistent"] 
+
+"Neomake Options
+let g:neomake_javascript_enable_markers=['eslint']
+
+" NERDTree Options
+autocmd StdinReadPre * let s:std_in=1
+autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree C:\Users\Gaultier.Delbarre\JavaScript | endif
 
 " NEOVIM OPTIONS
 syntax enable " Syntax highlighting
 set cursorline " Tells you where you are
 set autoindent " Indents code for you
+set tabstop=2 " Sets a tab to be 2 spaces
+set shiftwidth=2
+set expandtab
+let g:python3_host_prog = 'C:\Program Files\Python37\python.exe'
+colorscheme molokai
+if exists('g:Gui')
+  let g:GuiWindowFullScreen=1
+endif
 
 " Custom Commands
 command! RCedit :e C:/Users/Gaultier.Delbarre/AppData/Local/nvim/init.vim " Edits init.vim from anywhere
