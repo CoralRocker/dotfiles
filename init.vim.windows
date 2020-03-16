@@ -1,16 +1,16 @@
 " PLUGINS
 " I don't have python 2 or 3 installed, so most won't work.
-call plug#begin('C:\Users\Gaultier.Delbarre\AppData\Local\nvim\plugged')
+call plug#begin('~/.config/nvim/autoload/plug.vim')
 
 	Plug 'vim-airline/vim-airline' " Sweet Looking Status Line
 
-  Plug 'ternjs/tern_for_vim', {'do':'npm install && npm install -g tern'} " JavaScript/ECMAScript AutoCompletion
+"  Plug 'ternjs/tern_for_vim', {'do':'npm install && npm install -g tern'} " JavaScript/ECMAScript AutoCompletion
 
   Plug 'Shougo/deoplete.nvim', {'do':'UpdateRemotePlugins'} " Asynchronous Autocompletion Engine
   
-  Plug 'carlitux/deoplete-ternjs' " Incorporate Tern into Deoplete
+"  Plug 'carlitux/deoplete-ternjs' " Incorporate Tern into Deoplete
 
-  Plug 'neomake/neomake' " Linting for JavaScript
+" Plug 'neomake/neomake' " Linting for JavaScript
 
   Plug 'scrooloose/nerdtree' " File Explorer
 
@@ -38,7 +38,7 @@ let g:neomake_javascript_enable_markers=['eslint']
 
 " NERDTree Options
 autocmd StdinReadPre * let s:std_in=1
-autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree C:\Users\Gaultier.Delbarre\JavaScript | endif
+autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree ~/ | endif
 
 " NEOVIM OPTIONS
 syntax enable " Syntax highlighting
@@ -48,14 +48,14 @@ set smartindent
 " set tabstop=2 " Sets a tab to be 2 spaces
 " set shiftwidth=2
 " set expandtab
-let g:python3_host_prog = 'C:\Program Files\Python37\python.exe'
+" let g:python3_host_prog = 'C:\Program Files\Python37\python.exe'
 colorscheme molokai
 if exists('g:Gui')
   let g:GuiWindowFullScreen=1
 endif
 
 " Custom Commands
-command! RCedit :e C:/Users/Gaultier.Delbarre/AppData/Local/nvim/init.vim " Edits init.vim from anywhere
+command! RCedit :e ~/.config/nvim/init.vim " Edits init.vim from anywhere
 command! JSrun :!node % "Runs current ECMASCRIPT file with Node.js
 command! Wq :wq " Fixes a common typo I make
 command! W :w " Fixes another commmon typo

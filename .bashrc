@@ -2,7 +2,7 @@
 #~/.bashrc
 #
 #Start Screen
-export PATH=$(echo ~/.gem/ruby/2.6.0/bin:~/bin:$PATH)
+#export PATH=$(echo ~/.gem/ruby/2.6.0/bin:~/bin:$PATH)
 if [[ $- == *i* ]]; then
 	#neofetch | lolcat
 	if [[ $DISPLAY != '' ]]; then
@@ -88,7 +88,6 @@ github-create() {
  echo " done."
 }
 
-source ~/.fonts/*.sh
 
 #Aliases
 alias coreDump='sudo sysctl -w kernel.core_pattern=/tmp/cor-%e.%p.%h.%t'
