@@ -21,16 +21,6 @@ function gitcommitpush() {
 	git push origin $1
 }
 
-function bandit()
-{
-	ssh -p 2220 bandit${1}@bandit.labs.overthewire.org
-}
-
-function narnia()
-{
-	ssh -p 2226 narnia${1}@narnia.labs.overthewire.org
-}	
-
 function update_ps1() {
 	PS1=$(powerline-shell $?)
 }
@@ -44,6 +34,14 @@ function rmd()
 function writeMD()
 {
 	nvim $1 && pandoc $1 | lynx -stdin
+}
+
+function gitCheck()
+{
+	out=""
+	if [ -f ".git" ]; then
+		out="$[ (git status | grep "On branch" | cut -d\  -f 3) ]"
+	fi
 }
 
 github-create() {
@@ -101,16 +99,14 @@ alias boot-analyze='systemd-analyze blame && systemd-analyze critical-chain'
 alias r_prog='sudo ps -ef | less -R'
 alias fstab_mod='sudo nvim /etc/fstab'
 alias g++='g++ -std=c++17'
-alias vernier_spectral_analysis='wine "/home/tcr-g/.wine/drive_c/Program Files (x86)/Vernier Spectral Analysis/Vernier Spectral Analysis.exe"'
 alias i3config='nvim ~/.config/i3/config'
 alias i3blockconfig='nvim ~/.config/i3blocks/config'
-alias SkyCMD='env WINEPREFIX=/home/tcr-g/.steam/steam/steamapps/compatdata/489830/pfx winetricks'
-alias SkyWINE='env WINEPREFIX=/home/tcr-g/.steam/steam/steamapps/compatdata/489830/pfx wine'
 alias mirrorRank='sudo reflector --verbose --country "US" -l 10 --sort rate --save /etc/pacman.d/mirrorlist'
 alias wifibypass='sudo ifconfig wlp3s0 down && sudo wifi-menu && sudo dhcpcd'
 alias bkgrd='feh --bg-scale ~/Scouts/syntharchnotext.png'
 alias Genitalia='WINEPREFIX=~/.steam/steam/steamapps/compatdata/469820/pfx wine ~/.steam/steam/steamapps/common/GenitalJousting/GenitalJousting.exe'
 alias pbarconf='nvim ~/.config/polybar/config'
+alias optiman='optimus-manager --no-confirm'
 #PS1
 	if [[ ${EUID} == 0 ]] ; then
 		sq_color="\[\033[0;31m\]"
@@ -118,13 +114,23 @@ alias pbarconf='nvim ~/.config/polybar/config'
 		sq_color="\[\033[0;34m\]"
 	fi
 
-	if [[ $TERM != linux && ! $PROMPT_COMMAND =~ update_ps1 ]]; then
-		PROMPT_COMMAND="update_ps1; $PROMPT_COMMAND"	
+	git_line=""
+	if [ -d '.git' ]; then
+		git_line="[ $(git status | grep 'On branch' | cut -d\  -f 3) ]"
 	fi
-#	PS1="$sq_color\342\224\214\342\224\200\$([[ \$? != 0 ]] && echo \"[\[\033[01;37m\]\342\234\227$sq_color]\342\224\200\")[\[\033[01;37m\]\t$sq_color]\342\224\200[\[\033[01;37m\]\u@\h$sq_color]\n\342\224\224\342\224\200\342\224\200> \[\033[01;37m\]\w$sq_color $ \[\033[01;37m\]>>\\[\\033[0m\\] "
+
+#	if [[ $TERM != linux && ! $PROMPT_COMMAND =~ update_ps1 ]]; then
+#		PROMPT_COMMAND="update_ps1; $PROMPT_COMMAND"	
+#	fi
+	PS1="\n$sq_color\342\224\214\342\224\200"
+	PS1+="\$([[ -d \".git\" ]] && echo \"[\[\033[01;37m\]\$(git status | grep \"On branch\")$sq_color]\342\224\200\")"
+	PS1+="[\[\033[01;37m\]\t$sq_color]\342\224\200[\[\033[01;37m\]\u@\h$sq_color]\n"
+	PS1+="\342\224\224\342\224\200\342\224\200> \[\033[01;37m\]\w$sq_color $ \[\033[01;37m\]>>\\[\\033[0m\\] "
 
 
 	unset sq_color
 
 # added by pipx (https://github.com/pipxproject/pipx)
 export PATH="/home/tcr-g/.local/bin:$PATH"
+export CEDEV="/home/tcr-g/Ti/CEdev"
+export PATH="/home/tcr-g/Ti/CEdev/bin:$PATH"
